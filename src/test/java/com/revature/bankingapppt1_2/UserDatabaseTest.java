@@ -89,9 +89,10 @@ class UserDatabaseTest {
 	}
 
 	@Test
-	void getAllPendingTest() {
+	void getAllTest() {
 		List<String> temp = new ArrayList<String>();
 		temp.add("LeviApplebaum");
 		assertEquals(temp, userDB.getAll("Pending"));
 	}
+	
 }

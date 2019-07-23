@@ -34,9 +34,7 @@ public class Dbs {
 				userData.removeAccount(u, a);
 			}
 			accData.removeAccount(a);
-		}
-		
-		
+		}	
 		
 	}
 	

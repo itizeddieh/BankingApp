@@ -104,5 +104,14 @@ class AccountDatabaseTest {
 		assertTrue(accDB.getUsers("10").contains("two"));
 		assertFalse(accDB.getUsers("10").contains("three"));
 	}
+	@Test
+	void getAllTest() {
+		accDB.addAccount("100", "Checking", "Micky Boi");
+		accDB.addAccount("101", "Checking", "Ducky Boi");
+		accDB.approve("100"); 
+		assertTrue(accDB.getAll("Pending").contains("101"));
+		assertFalse(accDB.getAll("Pending").contains("100"));
+
+	}
 
 }

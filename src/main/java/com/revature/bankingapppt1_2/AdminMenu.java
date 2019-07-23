@@ -111,7 +111,8 @@ public class AdminMenu {
 		ArrayList<String> pending =  Dbs.userData.getAll("Pending");
 		int count = 1;
 		for(String s: pending) {
-			System.out.println(count + ": Username | " + s + " | Clearance:" + Dbs.getUserData().getClearanceLevel(s));
+			System.out.println(count + ": Username | " + s 
+					+ " | Clearance:" + Dbs.getUserData().getClearanceLevel(s));
 			count++;
 		}
 		String pick;
