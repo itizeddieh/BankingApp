@@ -96,6 +96,13 @@ public class UserDatabase implements Serializable{
 		}
 		return retList;
 	}
+	public ArrayList<String> getAll(){
+		ArrayList<String> retList = new ArrayList<String>();
+		for(String s : this.userDB.keySet()) {
+				retList.add(s);
+		}
+		return retList;
+	}
 	
 	public UserDatabase(String name, String pass, String clear) {
 		// TODO Auto-generated constructor stub

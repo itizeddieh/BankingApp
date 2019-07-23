@@ -10,8 +10,8 @@ public class AdminMenu {
 		System.out.println("1: View Account/Edit Balance");
 		System.out.println("2: View All Users");
 		System.out.println("3: View All Accounts");
-		System.out.println("4: Approve/Deny Pending Users");
-		System.out.println("5: Approve/Deny Pending Accounts");
+		System.out.println("4: Approve/Deny/Cancel Users");
+		System.out.println("5: Approve/Deny/Cancel Accounts");
 		System.out.println("6: Logout");
 	}
 
@@ -106,13 +106,14 @@ public class AdminMenu {
 		
 	}
 	public static void appOrDenyUsers() {
-		System.out.println("Approve or Deny Pending Users");
+		System.out.println("Approv/Deny/Cancel Users");
 		System.out.println("Choose an user from the list below.");
-		ArrayList<String> pending =  Dbs.userData.getAll("Pending");
+		ArrayList<String> pending =  Dbs.userData.getAll();
 		int count = 1;
 		for(String s: pending) {
 			System.out.println(count + ": Username | " + s 
-					+ " | Clearance:" + Dbs.getUserData().getClearanceLevel(s));
+					+ " | Clearance:" + Dbs.getUserData().getClearanceLevel(s) + " | "
+					+ Dbs.getUserData().getUser(s).getStatus());
 			count++;
 		}
 		String pick;
@@ -135,13 +136,14 @@ public class AdminMenu {
 		}
 	}
 	public static void appOrDenyAccounts() {
-		System.out.println("Approve or Deny Pending Accounts");
+		System.out.println("Approve/Deny/Cancel Accounts");
 		System.out.println("Choose an account from the list below.");
-		ArrayList<String> pending =  Dbs.accData.getAll("Pending");
+		ArrayList<String> pending = Dbs.accData.getAll();
 		int count = 1;
 		for(String s: pending) {
 			System.out.println(count + ": AccountID: " + s + "  :Account Type:" 
-					+ Dbs.getAccData().getAccount(s).getAccountType());
+					+ Dbs.getAccData().getAccount(s).getAccountType() + " | "
+					+ Dbs.getAccData().getAccount(s).getStatus());
 			count++;
 		}
 		String pick;
@@ -168,7 +170,7 @@ public class AdminMenu {
 		MenuOptions.clearConsole();
 		System.out.println("Choose an option:");
 		System.out.println("1: Approve");
-		System.out.println("2: Deny");
+		System.out.println("2: Deny/Cancel");
 		String s3;
 		s3 = MenuOptions.in.nextLine();
 		switch(s3) {
@@ -178,7 +180,7 @@ public class AdminMenu {
 				return;
 			case "2":
 				Dbs.accData.deny(accName);
-				System.out.println("Account Denied");
+				System.out.println("Account Cancelled");
 				return;
 			default:
 				System.out.println("Not a valid option.");
@@ -191,7 +193,7 @@ public class AdminMenu {
 		MenuOptions.clearConsole();
 		System.out.println("Choose an option:");
 		System.out.println("1: Approve");
-		System.out.println("2: Deny");
+		System.out.println("2: Deny/Cancel");
 		String s3;
 		s3 = MenuOptions.in.nextLine();
 		switch(s3) {
@@ -201,7 +203,7 @@ public class AdminMenu {
 				return;
 			case "2":
 				Dbs.userData.deny(userName);
-				System.out.println("User Denied");
+				System.out.println("User Cancelled");
 				return;
 			default:
 				System.out.println("Not a valid option");

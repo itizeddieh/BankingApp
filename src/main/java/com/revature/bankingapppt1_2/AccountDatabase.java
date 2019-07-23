@@ -101,6 +101,13 @@ public class AccountDatabase implements java.io.Serializable{
 		return retList;
 
 	}
+	public ArrayList<String> getAll(){
+		ArrayList<String> retList = new ArrayList<String>();
+		for(String s : this.acctDB.keySet()) {
+				retList.add(s);
+		}
+		return retList;
+	}
 	public AccountDatabase() {
 	}
 	public AccountDatabase(String initID, String initType, String initUser) {

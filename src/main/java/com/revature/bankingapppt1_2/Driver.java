@@ -12,12 +12,10 @@ public class Driver {
 		Dbs.readAccountDBFile();
 		Dbs.readUserDBFile();
 		Dbs.setInitUserData();
-			//MenuOptions.clearConsole();
-			MenuOptions.printMainMenu(); 
-			MenuOptions.mainMenu();
-			
-		//Dbs.userData.removeUser("justin");
 		
+		MenuOptions.printMainMenu(); 
+		MenuOptions.mainMenu();
+			
 		Dbs.deletAllDenied();
 		Dbs.writeAccountFileDB(Dbs.accData);
 		Dbs.writeUserFileDB(Dbs.userData);
