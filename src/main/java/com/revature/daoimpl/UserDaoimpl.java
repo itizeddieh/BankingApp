@@ -1,5 +1,6 @@
 package com.revature.daoimpl;
 
+import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -18,8 +19,23 @@ public class UserDaoimpl implements UserDao{
 	}
 
 	@Override
-	public void deleteUser(int id) {
-		// TODO Auto-generated method stub
+	public void deleteUser(String username) {
+		int id = this.getUserId(username);
+		if(id < 0) {
+			return;
+		}
+		Connection conn = cf.getConnection(); 
+		String sql = "{ call delete_user(?)";
+		
+		try {
+			CallableStatement call = conn.prepareCall(sql); 
+			call.setInt(1, id);
+			call.execute();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
 		
 	}
 
