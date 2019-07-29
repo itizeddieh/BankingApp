@@ -86,4 +86,10 @@ public class User implements Serializable{
 		this.status = "Pending";
 		
 	}
+	public User(String name, String pass, String clearance, String status) {
+		this.userName = name;
+		this.password = pass;
+		this.clearanceLevel = clearance;
+		this.status = status;
+	}
 }

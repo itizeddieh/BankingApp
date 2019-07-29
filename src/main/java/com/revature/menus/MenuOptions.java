@@ -2,10 +2,11 @@ package com.revature.menus;
 
 import java.util.Scanner;
 
-import com.revature.bankingapppt1_2.Dbs;
+import com.revature.daoimpl.UserDaoimpl;
 
 public class MenuOptions {
 	static Scanner in = new Scanner(System.in);
+	public static UserDaoimpl udi = new UserDaoimpl();
 
 	// Prints Main menu
 	public static void printMainMenu() {
@@ -44,11 +45,13 @@ public class MenuOptions {
 
 	public static void CreateProfile() {
 		String u, p, t;
+		int test;
 		do {
 			System.out.println("CREATE PROFILE");
 			System.out.println("Please enter desired UserName:");
 			u = in.nextLine().trim();
-		} while (Dbs.userData.checkIfExists(u));
+			test = udi.getUserId(u);
+		} while (test != -1);
 
 		System.out.println("Please enter desired password:");
 		p = in.nextLine().trim();
@@ -63,15 +66,15 @@ public class MenuOptions {
 			switch (t) {
 			case "1":
 				t = "Customer";
-				Dbs.userData.addUser(u, p, t);
+				udi.insertUser(u, p, t);
 				break;
 			case "2":
 				t = "Employee";
-				Dbs.userData.addUser(u, p, t);
+				udi.insertUser(u,p,t);
 				break;
 			case "3":
 				t = "Admin";
-				Dbs.userData.addUser(u, p, t);
+				udi.insertUser(u, p, t);
 				break;
 
 			default:
@@ -94,7 +97,7 @@ public class MenuOptions {
 		System.out.println("LOGIN");
 		System.out.println("Please enter your UserName:");
 		u = in.nextLine().trim();
-		if (!Dbs.userData.checkIfExists(u)) {
+		if (udi.getUserId(u) == -1) {
 			clearConsole();
 			System.out.println("Username not found");
 			return;
@@ -102,20 +105,20 @@ public class MenuOptions {
 
 		System.out.println("Please enter your Password:");
 		p = in.nextLine().trim();
-		if (!p.equals(Dbs.userData.getUser(u).getPassword())) {
+		if (!p.equals(udi.getUserPassword(u))) {
 			clearConsole();
 			System.out.println("Incorrect Password");
 			return;
 		}
 
-		if (!Dbs.userData.getUser(u).getStatus().equals("Approved")) {
+		if (!udi.getUserStatus(u).equals("Approved")) {
 			clearConsole();
 			System.out.println("Account is not been approved");
 			return;
 
 		}
 
-		switch (Dbs.userData.getClearanceLevel(u)) {
+		switch (udi.getClearance(u)) {
 		case "Customer":
 			CustomerMenu.printCMM();
 			CustomerMenu.run(u);

@@ -5,7 +5,11 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
 
+import com.revature.beans.User;
 import com.revature.dao.UserDao;
 import com.revature.util.ConnFactory;
 
@@ -102,6 +106,154 @@ public class UserDaoimpl implements UserDao{
 		} 
 		
 		return -1;
+	}
+	public void initUser() {
+		if(this.getUserId("admin") != -1) {
+			return;
+		}
+		Connection conn = cf.getConnection();
+		String sql = "INSERT INTO BANK_USERS VALUES(?,?,?,?,?)";
+		PreparedStatement ps;
+		try {
+			ps = conn.prepareStatement(sql);
+			ps.setInt(1, 1);
+			ps.setString(2, "admin");
+			ps.setString(3, "admin");
+			ps.setString(4, "Admin");
+			ps.setString(5, "Approved");
+			ps.execute();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+
+	/*
+	 * Returns user password as string. If not found
+	 * return null
+	 */
+	@Override
+	public String getUserPassword(String username) {
+		Connection conn = cf.getConnection(); 
+		String sql = "SELECT user_password FROM BANK_USERS WHERE user_name = ?";
+		PreparedStatement ps;
+		try {
+			ps = conn.prepareStatement(sql);
+			ps.setString(1, username);
+			ResultSet rs = ps.executeQuery();
+			if(rs.next()) {
+				return rs.getString(1);
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} 
+		
+		return null;
+	}
+
+	@Override
+	public String getUserStatus(String username) {
+		Connection conn = cf.getConnection(); 
+		String sql = "SELECT status FROM BANK_USERS WHERE user_name = ?";
+		PreparedStatement ps;
+		try {
+			ps = conn.prepareStatement(sql);
+			ps.setString(1, username);
+			ResultSet rs = ps.executeQuery();
+			if(rs.next()) {
+				return rs.getString(1);
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} 
+		
+		return null;
+	}
+
+	@Override
+	public String getUserType(String username) {
+		Connection conn = cf.getConnection(); 
+		String sql = "SELECT user_clearance_level FROM BANK_USERS WHERE user_name = ?";
+		PreparedStatement ps;
+		try {
+			ps = conn.prepareStatement(sql);
+			ps.setString(1, username);
+			ResultSet rs = ps.executeQuery();
+			if(rs.next()) {
+				return rs.getString(1);
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} 
+		
+		return null;
+	}
+
+	@Override
+	public String getClearance(String username) {
+		Connection conn = cf.getConnection(); 
+		String sql = "SELECT clearance_level FROM BANK_USERS WHERE user_name = ?";
+		PreparedStatement ps;
+		try {
+			ps = conn.prepareStatement(sql);
+			ps.setString(1, username);
+			ResultSet rs = ps.executeQuery();
+			if(rs.next()) {
+				return rs.getString(1);
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return null;
+	}
+
+	@Override
+	public User getUser(String username) {
+		
+		Connection conn = cf.getConnection();
+		String sql = "SELECT * FROM BANK_USERS WHERE user_name = ?";
+		PreparedStatement ps;
+		try {
+			ps = conn.prepareStatement(sql);
+			ps.setString(1, username);
+			ResultSet rs = ps.executeQuery();
+			rs.next();
+			return new User( rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5));
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return null;
+				
+		
+	}
+
+	@Override
+	public ArrayList<User> getAll() {
+		ArrayList<User> userList = new ArrayList<User>(); 
+		Connection conn = cf.getConnection();
+		try {
+			Statement stEmpty = conn.createStatement();
+			ResultSet rs;
+			rs = stEmpty.executeQuery("SELECT * FROM BANK_USERS");
+			User u = null;
+			while (rs.next()) {
+				u = new User(rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5));
+				userList.add(u); 
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		
+		return userList; 
+		
 	}
 	
 	

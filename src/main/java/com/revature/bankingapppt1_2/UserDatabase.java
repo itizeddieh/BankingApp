@@ -24,6 +24,7 @@ public class UserDatabase implements Serializable{
 		return retString;
 	}
 	public boolean checkIfExists(String name) {
+		
 		return this.userDB.containsKey(name);
 	}
 	public boolean addUser(String name, String pass, String clearance) {
