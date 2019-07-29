@@ -60,8 +60,27 @@ public class UserDaoimpl implements UserDao{
 	}
 
 	@Override
-	public void changeUserStatus(String status) {
-		// TODO Auto-generated method stub
+	/*
+	 * changes user's status to @parm status
+	 * will do nothing if the username is not found
+	 */
+	public void changeUserStatus(String username, String status) {
+		int id = this.getUserId(username);
+		if(id < 0) {
+			return;
+		}
+		Connection conn = cf.getConnection(); 
+		String sql = "{ call change_user_status(?, ?)";
+		
+		try {
+			CallableStatement call = conn.prepareCall(sql); 
+			call.setInt(1, id);
+			call.setString(2, status);
+			call.execute();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
 	}
 

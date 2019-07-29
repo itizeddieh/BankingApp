@@ -6,7 +6,7 @@ public interface UserDao {
 	
 	public abstract void deleteUser(String username);
 	
-	public abstract void changeUserStatus(String status);
+	public abstract void changeUserStatus(String username, String status);
 	
 	public abstract int getUserId(String username); 
 	
