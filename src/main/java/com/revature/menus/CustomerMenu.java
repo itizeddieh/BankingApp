@@ -1,4 +1,4 @@
-package com.revature.bankingapppt1_2;
+package com.revature.menus;
 
 public class CustomerMenu {
 	// print customer main menu

@@ -5,6 +5,8 @@ import java.util.List;
 import java.util.SortedMap;
 import java.util.TreeMap;
 
+import com.revature.beans.Account;
+
 public class AccountDatabase implements java.io.Serializable{
 	
 
@@ -12,7 +14,7 @@ public class AccountDatabase implements java.io.Serializable{
 	 * 
 	 */
 	private static final long serialVersionUID = -3599681973533110902L;
-	SortedMap<String, Account> acctDB = new TreeMap<String, Account>();
+	public SortedMap<String, Account> acctDB = new TreeMap<String, Account>();
 	
 	public void printDatabase() {
 		for(String k : this.acctDB.keySet())

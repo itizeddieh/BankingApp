@@ -5,8 +5,8 @@ import static org.junit.Assert.assertTrue;
 
 import org.junit.jupiter.api.Test;
 
-import com.revature.bankingapppt1_2.Account;
 import com.revature.bankingapppt1_2.AccountDatabase;
+import com.revature.beans.Account;
 
 class AccountDatabaseTest {
 

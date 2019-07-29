@@ -9,9 +9,9 @@ import java.io.ObjectOutputStream;
 
 public class Dbs {
 	private static final String userFile = "user.txt";
-	static UserDatabase userData;
+	public static UserDatabase userData;
 	private static final String accountFile = "account.txt";
-	static AccountDatabase accData;
+	public static AccountDatabase accData;
 
 	public static UserDatabase getUserData() {
 		return userData;
@@ -21,10 +21,13 @@ public class Dbs {
 		userData.addUser("Admin", "Admin", "Admin");
 		userData.getUser("Admin").approve();
 	}
-	
+//	public static void emptyAccounts() {
+//		for(String u: user)
+//	}
 	public static void deletAllDenied() {
 		for(String u: userData.getAll("Denied")) {
 			for(String a : userData.getAccounts(u)) {
+				
 				accData.removeUser(a, u);
 			}
 			userData.removeUser(u);

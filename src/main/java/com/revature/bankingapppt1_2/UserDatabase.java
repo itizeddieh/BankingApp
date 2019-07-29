@@ -5,6 +5,8 @@ import java.util.ArrayList;
 import java.util.SortedMap;
 import java.util.TreeMap;
 
+import com.revature.beans.User;
+
 public class UserDatabase implements Serializable{
 
 	/**

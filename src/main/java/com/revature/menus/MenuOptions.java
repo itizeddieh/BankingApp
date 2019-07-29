@@ -1,6 +1,8 @@
-package com.revature.bankingapppt1_2;
+package com.revature.menus;
 
 import java.util.Scanner;
+
+import com.revature.bankingapppt1_2.Dbs;
 
 public class MenuOptions {
 	static Scanner in = new Scanner(System.in);

@@ -1,4 +1,4 @@
-package com.revature.bankingapppt1_2;
+package com.revature.beans;
 
 import java.io.Serializable;
 import java.util.ArrayList;
