@@ -17,8 +17,8 @@ public class Driver {
 		//Dbs.setInitUserData();
 		UserDaoimpl udi = new UserDaoimpl(); 
 		//udi.insertUser("Bigboi1", "wordpass", "Pending");
-		udi.deleteUser("Bigboi1");
-		System.out.println(udi.getUserId("eheredia"));
+		//udi.deleteUser("Bigboi1");
+		System.out.println(udi.getUserId("Bigboi1"));
 			
 		//Dbs.deletAllDenied();
 		//Dbs.writeAccountFileDB(Dbs.accData);
