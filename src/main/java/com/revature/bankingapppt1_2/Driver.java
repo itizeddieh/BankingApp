@@ -16,7 +16,7 @@ public class Driver {
 		//Dbs.readUserDBFile();
 		//Dbs.setInitUserData();
 		UserDaoimpl udi = new UserDaoimpl(); 
-		//udi.insertUser("Bigboi1", "wordpass", "Pending");
+		udi.insertUser("Bigboi1", "wordpass", "Pending");
 		//udi.deleteUser("Bigboi1");
 		System.out.println(udi.getUserId("Bigboi1"));
 			

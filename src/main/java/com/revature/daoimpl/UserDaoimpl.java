@@ -13,8 +13,28 @@ public class UserDaoimpl implements UserDao{
 	
 	public static ConnFactory cf = ConnFactory.getInstance();
 	@Override
+	/*
+	 * inserts a new user into the table
+	 * NOTE IT DOES WILL NOT ADD USERS WITH DUPLICATE NAMES
+	 */
 	public void insertUser(String username, String password, String type) {
-		// TODO Auto-generated method stub
+		if(this.getUserId(username) != -1) {
+			return;
+		}
+		Connection conn = cf.getConnection(); 
+		String sql = "{ call INSERT_USER(?,?,?)";
+		CallableStatement call;
+		try {
+			call = conn.prepareCall(sql);
+			call.setString(1, username);
+			call.setString(2, password);
+			call.setString(3, type);
+			call.execute();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} 
+		
 		
 	}
 
