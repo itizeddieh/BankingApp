@@ -146,8 +146,7 @@ public class MenuOptions {
 	public static void removeDenied() {
 		ArrayList<Account> accounts = adi.getAll();
 		ArrayList<User> users = udi.getAll();
-		ArrayList<Integer> fullA = anu.allallAccounts();
-		ArrayList<Integer> fullU = anu.allallUsers();
+		
 		for(User u: users) {
 			if(u.getStatus().equals("Denied") && u != null) {
 				anu.unlinkAllUsersAccounts(udi.getUserId(u.getUserName()));
@@ -159,11 +158,20 @@ public class MenuOptions {
 			}
 		}
 		
+	}
+	public static void removeDeniedUsers() {
+		ArrayList<Integer> fullU = anu.allallUsers();
+		ArrayList<User> users = udi.getAll();
+		
 		for(User u: users) {
 			if(!fullU.contains(udi.getUserId(u.getUserName())) && udi.getUserId(u.getUserName()) != 0) {
 				udi.deleteUser(u.getUserName());
 			}
 		}
+	}
+	public static void removeDeniedAccounts() {
+		ArrayList<Integer> fullA = anu.allallAccounts();
+		ArrayList<Account> accounts = adi.getAll();
 		for(Account a: accounts) {
 			if(!fullA.contains(Integer.parseInt(a.getUniqueID()))) {
 				adi.deleteAccount(Integer.parseInt(a.getUniqueID()));

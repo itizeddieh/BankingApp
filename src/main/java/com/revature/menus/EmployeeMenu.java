@@ -46,8 +46,10 @@ public class EmployeeMenu {
 			MenuOptions.udi.getUser(u).printUser();
 			System.out.println();
 			for(Account s4 : accList) {
+				if(MenuOptions.anu.allUsers(Integer.parseInt(s4.getUniqueID())).contains(MenuOptions.udi.getUserId(u))) {
 				System.out.println(i + ": " + s4.toString());
 				i++;
+				}
 			}
 			System.out.println("\n\n\n");
 		}	

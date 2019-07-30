@@ -24,7 +24,7 @@ public class AnUDaoimpl implements AnUDao{
 			call.setInt(2, aId);
 			call.execute();
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
+			// 
 			e.printStackTrace();
 		} 
 		
@@ -40,7 +40,7 @@ public class AnUDaoimpl implements AnUDao{
 			call.setInt(1, uId);
 			call.execute();
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
+			// 
 			e.printStackTrace();
 		} 
 		
@@ -55,7 +55,7 @@ public class AnUDaoimpl implements AnUDao{
 			call.setInt(1, aId);
 			call.execute();
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
+			// 
 			e.printStackTrace();
 		} 
 		
@@ -72,7 +72,7 @@ public class AnUDaoimpl implements AnUDao{
 			call.setInt(2, aId);
 			call.execute();
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
+			// 
 			e.printStackTrace();
 		} 
 		
@@ -93,7 +93,7 @@ public class AnUDaoimpl implements AnUDao{
 				accountIdList.add(rs.getInt(1));
 			}
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
+			// 
 			e.printStackTrace();
 		}	
 		return accountIdList; 
@@ -113,7 +113,7 @@ public class AnUDaoimpl implements AnUDao{
 				return rs.getInt(1);
 			}
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
+			// 
 			e.printStackTrace();
 		}
 		return -1;
@@ -134,7 +134,7 @@ public class AnUDaoimpl implements AnUDao{
 				userIdList.add(rs.getInt(1));
 			}
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
+			// 
 			e.printStackTrace();
 		}	
 		return userIdList; 
@@ -152,7 +152,7 @@ public class AnUDaoimpl implements AnUDao{
 				userIdList.add(rs.getInt(1));
 			}
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
+			// 
 			e.printStackTrace();
 		}	
 		return userIdList; 
@@ -171,7 +171,7 @@ public class AnUDaoimpl implements AnUDao{
 				userIdList.add(rs.getInt(1));
 			}
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
+			// 
 			e.printStackTrace();
 		}	
 		return userIdList; 

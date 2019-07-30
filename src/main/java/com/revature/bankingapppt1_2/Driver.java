@@ -13,6 +13,8 @@ public class Driver {
 		MenuOptions.mainMenu();
 		
 		MenuOptions.removeDenied();
+		MenuOptions.removeDeniedUsers();
+		MenuOptions.removeDeniedAccounts();
 		
 	}
 
