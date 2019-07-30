@@ -25,7 +25,7 @@ public class AccountDaoimpl implements AccountDao{
 			call.setString(1, type);
 			call.execute();
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
+		
 			e.printStackTrace();
 		} 
 	}
@@ -33,14 +33,14 @@ public class AccountDaoimpl implements AccountDao{
 	@Override
 	public void deleteAccount(int accountID) {
 		Connection conn = cf.getConnection(); 
-		String sql = "{ call INSERT_ACCOUNT(?)";
+		String sql = "{ call DELETE_ACCOUNT(?)";
 		CallableStatement call;
 		try {
 			call = conn.prepareCall(sql);
 			call.setInt(1, accountID);
 			call.execute();
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
+		
 			e.printStackTrace();
 		} 
 		
@@ -57,7 +57,7 @@ public class AccountDaoimpl implements AccountDao{
 			call.setString(2, status);
 			call.execute();
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
+		
 			e.printStackTrace();
 		} 
 		
@@ -74,7 +74,7 @@ public class AccountDaoimpl implements AccountDao{
 			call.setDouble(2, val);
 			call.execute();
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
+		
 			e.printStackTrace();
 		} 
 		
@@ -91,7 +91,7 @@ public class AccountDaoimpl implements AccountDao{
 			call.setDouble(2, val);
 			call.execute();
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
+		
 			e.printStackTrace();
 		}
 		
@@ -111,7 +111,7 @@ public class AccountDaoimpl implements AccountDao{
 				return rs.getString(1);
 			}
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
+		
 			e.printStackTrace();
 		}
 		return null;
@@ -131,7 +131,7 @@ public class AccountDaoimpl implements AccountDao{
 			acc= new Account(rs.getInt(1)+"", rs.getString(2), rs.getDouble(3), rs.getString(4));
 				 
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
+		
 			e.printStackTrace();
 		}	
 		return acc; 
@@ -151,7 +151,7 @@ public class AccountDaoimpl implements AccountDao{
 				accList.add(a); 
 			}
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
+		
 			e.printStackTrace();
 		}	
 		return accList; 
@@ -162,6 +162,26 @@ public class AccountDaoimpl implements AccountDao{
 		for(Account a: accounts) {
 			System.out.println(a.toString());
 		}
+	}
+
+	@Override
+	public double getBalance(int accountID) {
+		int out = -1;
+		Connection conn = cf.getConnection();
+		String sql = "SELECT balance FROM BANK_ACCOUNTS WHERE account_id = ?";
+		try {
+			PreparedStatement ps = conn.prepareStatement(sql);
+			ps.setInt(1, accountID);
+			
+			ResultSet rs = ps.executeQuery();
+			rs.next();
+			return rs.getInt(1);
+				 
+		} catch (SQLException e) {
+		
+			e.printStackTrace();
+		}	
+		return out; 
 	}
 
 }

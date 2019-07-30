@@ -1,7 +1,10 @@
 package com.revature.menus;
 
+import java.util.ArrayList;
 import java.util.Scanner;
 
+import com.revature.beans.Account;
+import com.revature.beans.User;
 import com.revature.daoimpl.*;
 
 public class MenuOptions {
@@ -138,5 +141,33 @@ public class MenuOptions {
 	}
 	public static void clearConsole() {
 		System.out.println("\n");
+	}
+	
+	public static void removeDenied() {
+		ArrayList<Account> accounts = adi.getAll();
+		ArrayList<User> users = udi.getAll();
+		ArrayList<Integer> fullA = anu.allallAccounts();
+		ArrayList<Integer> fullU = anu.allallUsers();
+		for(User u: users) {
+			if(u.getStatus().equals("Denied") && u != null) {
+				anu.unlinkAllUsersAccounts(udi.getUserId(u.getUserName()));
+			}
+		}
+		for(Account a: accounts) {
+			if(a.getStatus().equals("Denied")) {
+				anu.unlinkAllAccountUsers(Integer.parseInt(a.getUniqueID()));
+			}
+		}
+		
+		for(User u: users) {
+			if(!fullU.contains(udi.getUserId(u.getUserName())) && udi.getUserId(u.getUserName()) != 0) {
+				udi.deleteUser(u.getUserName());
+			}
+		}
+		for(Account a: accounts) {
+			if(!fullA.contains(Integer.parseInt(a.getUniqueID()))) {
+				adi.deleteAccount(Integer.parseInt(a.getUniqueID()));
+			}
+		}
 	}
 }

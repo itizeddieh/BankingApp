@@ -1,8 +1,5 @@
 package com.revature.beans;
 
-import java.util.ArrayList;
-
-import com.revature.menus.MenuOptions;
 
 public class User {
 	

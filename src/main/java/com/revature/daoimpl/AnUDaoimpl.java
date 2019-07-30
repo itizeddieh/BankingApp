@@ -45,6 +45,21 @@ public class AnUDaoimpl implements AnUDao{
 		} 
 		
 	}
+	
+	public void unlinkAllAccountUsers(int aId) {
+		Connection conn = cf.getConnection(); 
+		String sql = "{ call UNLINK_ACCOUNT(?)";
+		CallableStatement call;
+		try {
+			call = conn.prepareCall(sql);
+			call.setInt(1, aId);
+			call.execute();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} 
+		
+	}
 
 	@Override
 	public void unlinkUserAndAccount(int uId, int aId) {
@@ -112,6 +127,43 @@ public class AnUDaoimpl implements AnUDao{
 		try {
 			PreparedStatement ps = conn.prepareStatement(sql);
 			ps.setInt(1, aId);
+			ResultSet rs;
+			rs = ps.executeQuery();
+			
+			while (rs.next()) {
+				userIdList.add(rs.getInt(1));
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}	
+		return userIdList; 
+	}
+	public ArrayList<Integer> allallUsers() {
+		ArrayList<Integer> userIdList = new ArrayList<Integer>(); 
+		Connection conn = cf.getConnection();
+		String sql = "SELECT user_id FROM ANULOOKUP";
+		try {
+			PreparedStatement ps = conn.prepareStatement(sql);
+			ResultSet rs;
+			rs = ps.executeQuery();
+			
+			while (rs.next()) {
+				userIdList.add(rs.getInt(1));
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}	
+		return userIdList; 
+	}
+	
+	public ArrayList<Integer> allallAccounts() {
+		ArrayList<Integer> userIdList = new ArrayList<Integer>(); 
+		Connection conn = cf.getConnection();
+		String sql = "SELECT account_id FROM ANULOOKUP";
+		try {
+			PreparedStatement ps = conn.prepareStatement(sql);
 			ResultSet rs;
 			rs = ps.executeQuery();
 			

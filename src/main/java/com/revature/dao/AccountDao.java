@@ -22,5 +22,7 @@ public interface AccountDao {
 	
 	public abstract ArrayList<Account> getAll();
 	
+	public abstract double getBalance(int accountID);
+	
 	
 }

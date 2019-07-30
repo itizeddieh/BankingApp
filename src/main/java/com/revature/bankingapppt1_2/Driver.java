@@ -12,6 +12,8 @@ public class Driver {
 		MenuOptions.printMainMenu();
 		MenuOptions.mainMenu();
 		
+		MenuOptions.removeDenied();
+		
 	}
 
 

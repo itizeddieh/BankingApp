@@ -9,6 +9,8 @@ public interface AnUDao {
 	
 	public abstract void unlinkAllUsersAccounts(int uId);
 	
+	public void unlinkAllAccountUsers(int aId);
+	
 	public abstract void unlinkUserAndAccount(int uId, int aId);
 
 	public abstract ArrayList<Integer> allAccounts(int uId);
