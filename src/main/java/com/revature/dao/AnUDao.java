@@ -12,4 +12,8 @@ public interface AnUDao {
 	public abstract void unlinkUserAndAccount(int uId, int aId);
 
 	public abstract ArrayList<Integer> allAccounts(int uId);
+	
+	public abstract ArrayList<Integer> allUsers(int aId);
+	
+	public abstract int currentAccountSEQ();
 }

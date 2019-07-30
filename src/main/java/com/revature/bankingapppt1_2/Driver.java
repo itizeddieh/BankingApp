@@ -17,7 +17,7 @@ public class Driver {
 		//adi.insertAccount("Checking");
 		//anu.linkUserAndAccount(7, 3);
 		//anu.linkUserAndAccount(7,2);
-		
+		MenuOptions.udi.initUser();
 		MenuOptions.printMainMenu();
 		MenuOptions.mainMenu();
 		

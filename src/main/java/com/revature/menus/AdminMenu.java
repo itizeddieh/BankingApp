@@ -34,7 +34,7 @@ public class AdminMenu {
 				print();
 				break;
 			case "3":
-				//Dbs.accData.printDatabase();
+				MenuOptions.adi.printAll();
 				print();
 				break;
 			case "4":
@@ -42,7 +42,7 @@ public class AdminMenu {
 				print();
 				break;
 			case "5":
-				//appOrDenyAccounts();
+				appOrDenyAccounts();
 				print();
 				break;
 			case "6":
@@ -142,36 +142,37 @@ public class AdminMenu {
 			return;
 		}
 	}
-//	public static void appOrDenyAccounts() {
-//		System.out.println("Approve/Deny/Cancel Accounts");
-//		System.out.println("Choose an account from the list below.");
-//		ArrayList<String> pending = Dbs.accData.getAll();
-//		int count = 1;
-//		for(String s: pending) {
-//			System.out.println(count + ": AccountID: " + s + "  :Account Type:" 
-//					+ Dbs.getAccData().getAccount(s).getAccountType() + " | "
-//					+ Dbs.getAccData().getAccount(s).getStatus());
-//			count++;
-//		}
-//		String pick;
-//		int pickInt;
-//		String accPick;
-//		pick = MenuOptions.in.nextLine();
-//		try {
-//			pickInt = Integer.parseInt(pick);
-//			if(pickInt <=pending.size() && pickInt > 0) {
-//				accPick = pending.get(pickInt - 1);
-//				approveDenyAcc(accPick);
-//			}
-//			else {
-//				System.out.println("Not a valid option");
-//				return;
-//			}
-//		}catch(NumberFormatException ne) {
-//			System.out.println("Not a valid option");
-//			return;
-//		}
-//	}
+	public static void appOrDenyAccounts() {
+		System.out.println("Approve/Deny/Cancel Accounts");
+		System.out.println("Choose an account from the list below.");
+		ArrayList<Account> allA = MenuOptions.adi.getAll();
+		
+		int count = 1;
+		for(Account s: allA) {
+			System.out.println(count + ": AccountID: " + s.getUniqueID() + "  :Account Type:" 
+					+ s.getAccountType() + " | "
+					+ s.getStatus());
+			count++;
+		}
+		String pick;
+		int pickInt;
+		String accPick;
+		pick = MenuOptions.in.nextLine();
+		try {
+			pickInt = Integer.parseInt(pick);
+			if(pickInt <=allA.size() && pickInt > 0) {
+				accPick = allA.get(pickInt - 1).getUniqueID();
+				approveDenyAcc(accPick);
+			}
+			else {
+				System.out.println("Not a valid option");
+				return;
+			}
+		}catch(NumberFormatException ne) {
+			System.out.println("Not a valid option");
+			return;
+		}
+	}
 	
 	public static void approveDenyAcc(String accName) {
 		MenuOptions.clearConsole();
@@ -183,10 +184,12 @@ public class AdminMenu {
 		switch(s3) {
 			case "1":
 				//Dbs.accData.approve(accName);
+				MenuOptions.adi.changeAccountStatus(Integer.parseInt(accName), "Approved");
 				System.out.println("Account Approved");
 				return;
 			case "2":
 				//Dbs.accData.deny(accName);
+				MenuOptions.adi.changeAccountStatus(Integer.parseInt(accName), "Denied");
 				System.out.println("Account Cancelled");
 				return;
 			default:

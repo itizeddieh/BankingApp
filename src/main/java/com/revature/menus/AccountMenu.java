@@ -9,6 +9,7 @@ public class AccountMenu {
 
 	public static void createAccount(String u) {
 		String t;
+		int aId;
 		do {
 			MenuOptions.clearConsole();
 			System.out.println("CREATE ACCOUNT");
@@ -19,14 +20,16 @@ public class AccountMenu {
 			switch (t) {
 			case "1":
 				t = "Customer";
-				Dbs.accData.addAccount(Dbs.accData.acctDB.size() + "", "Checking", u);
-				Dbs.userData.addAccount(u, Dbs.accData.acctDB.size() - 1 + "");
+				MenuOptions.adi.insertAccount("Checking");
+				aId = MenuOptions.anu.currentAccountSEQ();
+				MenuOptions.anu.linkUserAndAccount(MenuOptions.udi.getUserId(u), aId);
 				System.out.println("Account is pending. Check later to see status.");
 				break;
 			case "2":
 				t = "Employee";
-				Dbs.accData.addAccount(Dbs.accData.acctDB.size() + "", "Savings", u);
-				Dbs.userData.addAccount(u, Dbs.accData.acctDB.size() - 1 + "");
+				MenuOptions.adi.insertAccount("Saving");
+				aId = MenuOptions.anu.currentAccountSEQ();
+				MenuOptions.anu.linkUserAndAccount(MenuOptions.udi.getUserId(u), aId);
 				System.out.println("Account is pending. Check later to see status.");
 				break;
 
@@ -43,14 +46,16 @@ public class AccountMenu {
 	 * Status | [List of users active on account]
 	 */
 	public static void selectAccount(String u) {
-
-		ArrayList<String> s = (ArrayList<String>) Dbs.userData.getAccounts(u);
+		int userId = MenuOptions.udi.getUserId(u);
+		ArrayList<Integer> a = MenuOptions.anu.allAccounts(userId);
+		ArrayList<Account> acc = new ArrayList<Account>();
 		int i = 1;
 		MenuOptions.clearConsole();
 		System.out.println("SELECT ACCOUNT");
 		System.out.println("Please select account");
-		for (String a : s) {
-			System.out.println(i + ": " + Dbs.accData.getAccount(a));
+		for (Integer ai : a) {
+			acc.add(MenuOptions.adi.getAccount(ai));
+			System.out.println(i + ": " + acc.get(acc.size() - 1));
 			i++;
 		}
 		String input;
@@ -59,9 +64,9 @@ public class AccountMenu {
 
 		try {
 			int option = Integer.parseInt(input);
-			if (option > 0 && option <= Dbs.userData.getAccounts(u).size()) {
+			if (option > 0 && option <= a.size()) {
 				// check if selected account is approved
-				if (Dbs.accData.getAccount(Dbs.userData.getAccounts(u).get(option - 1)).getStatus()
+				if (acc.get(option - 1).getStatus()
 						.equals("Approved")) {
 					accountMenu(u, Dbs.accData.getAccount(Dbs.userData.getAccounts(u).get(option - 1)));
 				} else {

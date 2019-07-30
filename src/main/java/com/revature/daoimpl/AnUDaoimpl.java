@@ -5,11 +5,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.ArrayList;
-
-import com.revature.beans.Account;
-import com.revature.beans.User;
 import com.revature.dao.AnUDao;
 import com.revature.util.ConnFactory;
 
@@ -86,6 +82,47 @@ public class AnUDaoimpl implements AnUDao{
 			e.printStackTrace();
 		}	
 		return accountIdList; 
+	}
+	
+	
+
+	@Override
+	public int currentAccountSEQ() {
+		Connection conn = cf.getConnection(); 
+		String sql = "SELECT account_id FROM bank_accounts MINUS SELECT account_id FROM anulookup";
+		PreparedStatement ps;
+		try {
+			ps = conn.prepareStatement(sql);
+			ResultSet rs = ps.executeQuery();
+			if(rs.next()) {
+				return rs.getInt(1);
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return -1;
+	}
+
+	@Override
+	public ArrayList<Integer> allUsers(int aId) {
+		ArrayList<Integer> userIdList = new ArrayList<Integer>(); 
+		Connection conn = cf.getConnection();
+		String sql = "SELECT user_id FROM ANULOOKUP WHERE account_id = ?";
+		try {
+			PreparedStatement ps = conn.prepareStatement(sql);
+			ps.setInt(1, aId);
+			ResultSet rs;
+			rs = ps.executeQuery();
+			
+			while (rs.next()) {
+				userIdList.add(rs.getInt(1));
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}	
+		return userIdList; 
 	}
 
 }

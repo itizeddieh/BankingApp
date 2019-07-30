@@ -38,7 +38,7 @@ public class User {
 	@Override
 	public String toString() {
 		return "| " + userName + " | " + password + " | " + clearanceLevel
-				+ " | " + status + " | " ;
+				+ " | " + status + " | ";
 	}
 	public String getUserName() {
 		return userName;

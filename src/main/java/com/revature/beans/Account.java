@@ -1,10 +1,9 @@
 package com.revature.beans;
 
-import java.util.ArrayList;
-import java.util.List;
+
+import com.revature.menus.MenuOptions;
 
 public class Account {
-
 
 	private String uniqueID;
 	private String accountType;
@@ -17,12 +16,12 @@ public class Account {
 		this.balance = 0;
 		this.status = "Pending";
 	}
-	
-	public Account(String ID, String type, double bal, String initialUser) {
+
+	public Account(String ID, String type, double bal, String status) {
 		this.uniqueID = ID;
 		this.accountType = type;
 		this.balance = bal;
-		this.status = "Pending";
+		this.status = status;
 	}
 
 	public void approve() {
@@ -33,13 +32,10 @@ public class Account {
 		this.status = "Denied";
 	}
 
-
 	public void updateBalance(double change) {
 		this.balance += change;
 		this.balance = Math.round(this.balance * 100.0) / 100.0;
 	}
-
-	
 
 	//////// GETTERS AND SETTERS ////////
 	public String getUniqueID() {
@@ -75,22 +71,22 @@ public class Account {
 	}
 
 	public void printAccount() {
-		System.out.println(this.toString());
+		System.out.println(this.toString() + MenuOptions.anu.allUsers(Integer.parseInt(uniqueID)));
 	}
 
 	@Override
 	public boolean equals(Object a) {
-		if(a instanceof Account) {
-		if(((Account) a).getUniqueID() == this.getUniqueID()) {
-			return true;
-		}
+		if (a instanceof Account) {
+			if (((Account) a).getUniqueID() == this.getUniqueID()) {
+				return true;
+			}
 		}
 		return false;
-		
+
 	}
 
 	@Override
 	public String toString() {
-		return "| " +uniqueID + " | "+ accountType + " | Bal: " + balance + " | " + status + " | " ;
+		return "| " + uniqueID + " | " + accountType + " | Bal: " + balance + " | " + status + " | ";
 	}
 }

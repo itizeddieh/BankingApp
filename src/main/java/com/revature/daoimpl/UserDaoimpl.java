@@ -114,7 +114,7 @@ public class UserDaoimpl implements UserDao{
 		PreparedStatement ps;
 		try {
 			ps = conn.prepareStatement(sql);
-			ps.setInt(1, 1);
+			ps.setInt(1, 0);
 			ps.setString(2, "admin");
 			ps.setString(3, "admin");
 			ps.setString(4, "Admin");

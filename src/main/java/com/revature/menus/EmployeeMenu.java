@@ -2,7 +2,7 @@ package com.revature.menus;
 
 import java.util.ArrayList;
 
-import com.revature.bankingapppt1_2.Dbs;
+import com.revature.beans.Account;
 
 public class EmployeeMenu {
 	
@@ -35,19 +35,18 @@ public class EmployeeMenu {
 		String u;
 		System.out.println("Please type a user name.");
 		u = MenuOptions.in.nextLine().trim();
-		if (!Dbs.userData.checkIfExists(u)) {
+		if (MenuOptions.udi.getUserId(u) == -1) {
 			System.out.println("Username not found");
 			return;
 		}
 		else {
-			ArrayList<String> acctList;
-			acctList = Dbs.userData.getAccounts(u);
+			ArrayList<Account> accList = MenuOptions.adi.getAll();
 			int i = 1;
 			System.out.println("View user profile and accounts below.");
-			Dbs.userData.getUser(u).printUser();
+			MenuOptions.udi.getUser(u).printUser();
 			System.out.println();
-			for(String s4 : acctList) {
-				System.out.println(i + ": " + Dbs.accData.getAccount(s4).toString());
+			for(Account s4 : accList) {
+				System.out.println(i + ": " + s4.toString());
 				i++;
 			}
 			System.out.println("\n\n\n");

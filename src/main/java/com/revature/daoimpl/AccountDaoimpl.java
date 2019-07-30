@@ -156,5 +156,12 @@ public class AccountDaoimpl implements AccountDao{
 		}	
 		return accList; 
 	}
+	
+	public void printAll() {
+		ArrayList<Account> accounts = this.getAll();
+		for(Account a: accounts) {
+			System.out.println(a.toString());
+		}
+	}
 
 }
