@@ -2,11 +2,13 @@ package com.revature.menus;
 
 import java.util.Scanner;
 
-import com.revature.daoimpl.UserDaoimpl;
+import com.revature.daoimpl.*;
 
 public class MenuOptions {
 	static Scanner in = new Scanner(System.in);
 	public static UserDaoimpl udi = new UserDaoimpl();
+	public static AccountDaoimpl adi = new AccountDaoimpl();
+	public static AnUDaoimpl anu = new AnUDaoimpl();
 
 	// Prints Main menu
 	public static void printMainMenu() {

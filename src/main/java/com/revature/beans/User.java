@@ -1,19 +1,15 @@
 package com.revature.beans;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 
-public class User implements Serializable{
-	
+import com.revature.menus.MenuOptions;
 
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 6621601378735547224L;
+public class User {
+	
 	private String userName;
 	private String password;
 	private String clearanceLevel;
-	private ArrayList<String> accounts = new ArrayList<String>();
+	
 	private String status;
 	
 	public void approve() {
@@ -29,15 +25,7 @@ public class User implements Serializable{
 	public void setStatus(String status) {
 		this.status = status;
 	}
-	public void addAccount(String id) {
-		this.accounts.add(id);
-	}
-	public boolean removeAccount(String id) {
-		if(!this.accounts.contains(id))
-			return false;
-		this.accounts.remove(id);
-		return true;
-	}
+	
 	public void changePassword(String newPass) {
 		this.password = newPass;
 	}
@@ -50,7 +38,7 @@ public class User implements Serializable{
 	@Override
 	public String toString() {
 		return "| " + userName + " | " + password + " | " + clearanceLevel
-				+ " | " + status + " | " + accounts;
+				+ " | " + status + " | " ;
 	}
 	public String getUserName() {
 		return userName;
@@ -70,12 +58,7 @@ public class User implements Serializable{
 	public void setClearanceLevel(String clearanceLevel) {
 		this.clearanceLevel = clearanceLevel;
 	}
-	public ArrayList<String> getAccounts() {
-		return this.accounts;
-	}
-	public void setAccounts(ArrayList<String> accounts) {
-		this.accounts = accounts;
-	}
+	
 	public User() {
 		
 	}

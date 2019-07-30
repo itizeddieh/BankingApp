@@ -7,8 +7,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
-import java.util.List;
-
 import com.revature.beans.User;
 import com.revature.dao.UserDao;
 import com.revature.util.ConnFactory;

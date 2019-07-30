@@ -52,13 +52,13 @@ public class UserDatabase implements Serializable{
 	public boolean addAccount(String name, String newAccount) {
 		if(!this.checkIfExists(name))
 			return false;
-		this.userDB.get(name).addAccount(newAccount);
+		//this.userDB.get(name).addAccount(newAccount);
 		return true;
 	}
 	public boolean removeAccount(String user, String oldAccount) {
 		if(!checkIfExists(user))
 			return false;
-		this.getUser(user).removeAccount(oldAccount);
+		//this.getUser(user).removeAccount(oldAccount);
 		return true;
 	}
 	public boolean approve(String user) {
@@ -78,7 +78,7 @@ public class UserDatabase implements Serializable{
 			ArrayList<String> retVal = new ArrayList<String>();
 			return retVal;
 		}
-		return this.userDB.get(user).getAccounts();		
+		return null; //this.userDB.get(user).getAccounts();		
 	}
 	public String getClearanceLevel(String user) {
 		if(!checkIfExists(user))

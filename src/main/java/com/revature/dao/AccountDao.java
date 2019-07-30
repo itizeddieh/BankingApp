@@ -1,13 +1,28 @@
 package com.revature.dao;
 
+import java.util.ArrayList;
+
+import com.revature.beans.Account;
+
 public interface AccountDao {
 
 	public abstract void insertAccount(String type);
 	
-	public abstract void deleteAccount(int id);
+	public abstract void deleteAccount(int accountID);
 	
-	public abstract void updateAccount(int id, double amount);
+	public abstract void changeAccountStatus(int accountID, int status);
 	
-	public abstract void setBalance(int id, double amount);
+	public abstract void changeAccountBalance(int accountID, double val);
+	
+	public abstract void setAccountBalance(int accountID, double val);
+	
+	public abstract int getAccountId(String username); 
+	
+	public abstract int getAccountStatus(int accountID);
+			
+	public abstract Account getAccount(int accountID);
+	
+	public abstract ArrayList<Account> getAll();
+	
 	
 }
