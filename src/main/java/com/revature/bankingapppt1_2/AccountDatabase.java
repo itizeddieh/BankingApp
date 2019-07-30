@@ -58,15 +58,15 @@ public class AccountDatabase implements java.io.Serializable{
 	public boolean addUser(String id, String newUser) {
 		if(!this.checkIfExists(id))
 			return false;
-		this.acctDB.get(id).addUser(newUser);
+//		this.acctDB.get(id).addUser(newUser);
 		return true;
 	}
 	public boolean removeUser(String id, String oldUser) {
 		if(!this.checkIfExists(id))
 			return false;
-		if(this.getAccount(id).getUsers().size() < 2)
-			return false;
-		this.getAccount(id).removeUser(oldUser);
+//		if(this.getAccount(id).getUsers().size() < 2)
+//			return false;
+//		this.getAccount(id).removeUser(oldUser);
 		return true;
 	}
 	public boolean updateBalance(String id, double change) {
@@ -91,7 +91,7 @@ public class AccountDatabase implements java.io.Serializable{
 			List<String> retVal = new ArrayList<String>();
 			return retVal;
 		}
-		return this.acctDB.get(id).getUsers();
+		return null;//this.acctDB.get(id).getUsers();
 	}
 	
 	public ArrayList<String> getAll(String status){

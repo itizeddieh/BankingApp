@@ -247,12 +247,16 @@ public class UserDaoimpl implements UserDao{
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}
-		
-		
+		}	
 		return userList; 
 		
 	}
 	
+	public void printAll() {
+		ArrayList<User> users = this.getAll();
+		for(User u: users) {
+			System.out.println(u.toString());
+		}
+	}
 	
 }

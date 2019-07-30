@@ -2,7 +2,10 @@ package com.revature.daoimpl;
 
 import java.sql.CallableStatement;
 import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 
 import com.revature.beans.Account;
@@ -44,8 +47,19 @@ public class AccountDaoimpl implements AccountDao{
 	}
 
 	@Override
-	public void changeAccountStatus(int accountID, int status) {
-		// TODO Auto-generated method stub
+	public void changeAccountStatus(int accountID, String status) {
+		Connection conn = cf.getConnection(); 
+		String sql = "{ call UPDATE_ACCOUNT_STATUS(?,?)";
+		CallableStatement call;
+		try {
+			call = conn.prepareCall(sql);
+			call.setInt(1, accountID);
+			call.setString(2, status);
+			call.execute();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} 
 		
 	}
 
@@ -83,28 +97,64 @@ public class AccountDaoimpl implements AccountDao{
 		
 	}
 
-	@Override
-	public int getAccountId(String username) {
-		// TODO Auto-generated method stub
-		return 0;
-	}
 
 	@Override
-	public int getAccountStatus(int accountID) {
-		// TODO Auto-generated method stub
-		return 0;
+	public String getAccountStatus(int accountID) {
+		Connection conn = cf.getConnection(); 
+		String sql = "SELECT status FROM BANK_ACCOUNTS account_id = ?";
+		PreparedStatement ps;
+		try {
+			ps = conn.prepareStatement(sql);
+			ps.setInt(1, accountID);
+			ResultSet rs = ps.executeQuery();
+			if(rs.next()) {
+				return rs.getString(1);
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return null;
 	}
 
 	@Override
 	public Account getAccount(int accountID) {
-		// TODO Auto-generated method stub
-		return null;
+		Account acc = null;
+		Connection conn = cf.getConnection();
+		String sql = "SELECT * FROM BANK_ACCOUNTS WHERE account_id = ?";
+		try {
+			PreparedStatement ps = conn.prepareStatement(sql);
+			ps.setInt(1, accountID);
+			
+			ResultSet rs = ps.executeQuery();
+			rs.next();
+			acc= new Account(rs.getInt(1)+"", rs.getString(2), rs.getDouble(3), rs.getString(4));
+				 
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}	
+		return acc; 
 	}
 
 	@Override
 	public ArrayList<Account> getAll() {
-		// TODO Auto-generated method stub
-		return null;
+		ArrayList<Account> accList = new ArrayList<Account>(); 
+		Connection conn = cf.getConnection();
+		try {
+			Statement stEmpty = conn.createStatement();
+			ResultSet rs;
+			rs = stEmpty.executeQuery("SELECT * FROM BANK_ACCOUNTS");
+			Account a = null;
+			while (rs.next()) {
+				a = new Account(rs.getInt(1)+"", rs.getString(2), rs.getDouble(3), rs.getString(4));
+				accList.add(a); 
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}	
+		return accList; 
 	}
 
 }

@@ -2,6 +2,7 @@ package com.revature.menus;
 
 import java.util.ArrayList;
 
+import com.revature.beans.Account;
 import com.revature.beans.User;
 
 
@@ -25,11 +26,11 @@ public class AdminMenu {
 			s = MenuOptions.in.nextLine().trim();
 			switch (s) {
 			case "1":
-				//editUsers();
+				editUsers();
 				print();
 				break;
 			case "2":
-				//Dbs.userData.printDatabase();
+				MenuOptions.udi.printAll();
 				print();
 				break;
 			case "3":
@@ -53,61 +54,66 @@ public class AdminMenu {
 			}
 		} while (!s.equals("6"));
 	}
-//	public static void editUsers() {
-//		String u;
-//		System.out.println("Please type a user name.");
-//		u = MenuOptions.in.nextLine().trim();
-//		if (MenuOptions.udi.getUserId(u) == -1) {
-//			System.out.println("Username not found");
-//			return;
-//		}
-//		else {
-//			ArrayList<String> acctList;
-//			acctList = Dbs.userData.getAccounts(u);
-//			int i = 1;
-//			System.out.println("View user profile and accounts below.");
-//			System.out.println("Choose an option to change balance.");
-//			MenuOptions.udi.getUser(u).printUser();
-//			System.out.println();
-//			for(String s4 : acctList) {
-//				System.out.println(i + ": " + Dbs.accData.getAccount(s4).toString());
-//				i++;
-//			}
-//			int pickInt;
-//			String accPick = new String();
-//				u = MenuOptions.in.nextLine();
-//				try {
-//					pickInt = Integer.parseInt(u);
-//					if(pickInt <=acctList.size() && pickInt > 0) {
-//						accPick = acctList.get(pickInt - 1);
-//					}
-//					else {
-//						System.out.println("Not a valid option");
-//						return;
-//					}
-//				}catch(NumberFormatException ne) {
-//					System.out.println("Not a valid option");
-//					return;
-//				}
-//			System.out.println("Please input a new balance for the following account.");
-//			Dbs.accData.getAccount(accPick).printAccount();
-//			u = MenuOptions.in.nextLine();
-//			double valInt;
-//			try {
-//				valInt = Double.parseDouble(u);
-//				if(valInt >= 0) {
-//					Dbs.accData.setBalance(accPick, valInt);
-//				}
-//				else {
-//					System.out.println("Invalid amount.");
-//				}
-//			}catch(NumberFormatException ne) {
-//				System.out.println("Not a valid input");
-//			}
-//			
-//		}
-//		
-//	}
+	public static void editUsers() {
+		String u;
+		System.out.println("Please type a user name.");
+		u = MenuOptions.in.nextLine().trim();
+		if (MenuOptions.udi.getUserId(u) == -1) {
+			System.out.println("Username not found");
+			return;
+		}
+		else {
+			ArrayList<Integer> accountIdlist = null;
+			accountIdlist = MenuOptions.anu.allAccounts(MenuOptions.udi.getUserId(u));
+			ArrayList<String> acctList = new ArrayList<String>();
+			for(Integer id: accountIdlist) {
+				acctList.add(MenuOptions.adi.getAccount(id).getUniqueID());
+			}
+			
+			int i = 1;
+			System.out.println("View user profile and accounts below.");
+			System.out.println("Choose an option to change balance.");
+			MenuOptions.udi.getUser(u).printUser();
+			System.out.println();
+			for(String s4 : acctList) {
+				System.out.println(i + ": " + MenuOptions.adi.getAccount(Integer.parseInt(s4)));
+				i++;
+			}
+			int pickInt;
+			String accPick = new String();
+				u = MenuOptions.in.nextLine();
+				try {
+					pickInt = Integer.parseInt(u);
+					if(pickInt <=acctList.size() && pickInt > 0) {
+						accPick = acctList.get(pickInt - 1);
+					}
+					else {
+						System.out.println("Not a valid option");
+						return;
+					}
+				}catch(NumberFormatException ne) {
+					System.out.println("Not a valid option");
+					return;
+				}
+			System.out.println("Please input a new balance for the following account.");
+			MenuOptions.adi.getAccount(Integer.parseInt(accPick)).printAccount();
+			u = MenuOptions.in.nextLine();
+			double valInt;
+			try {
+				valInt = Double.parseDouble(u);
+				if(valInt >= 0) {
+					MenuOptions.adi.setAccountBalance(Integer.parseInt(accPick), valInt);
+				}
+				else {
+					System.out.println("Invalid amount.");
+				}
+			}catch(NumberFormatException ne) {
+				System.out.println("Not a valid input");
+			}
+			
+		}
+		
+	}
 	public static void appOrDenyUsers() {
 		System.out.println("Approv/Deny/Cancel Users");
 		System.out.println("Choose an user from the list below.");

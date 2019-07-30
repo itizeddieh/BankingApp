@@ -1,27 +1,27 @@
 package com.revature.beans;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Account implements Serializable{
+public class Account {
 
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = -1164597552643650754L;
 
 	private String uniqueID;
 	private String accountType;
 	private double balance;
-	private List<String> users = new ArrayList<String>();
 	private String status;
 
 	public Account(String ID, String type, String initialUser) {
 		this.uniqueID = ID;
 		this.accountType = type;
 		this.balance = 0;
-		this.users.add(initialUser);
+		this.status = "Pending";
+	}
+	
+	public Account(String ID, String type, double bal, String initialUser) {
+		this.uniqueID = ID;
+		this.accountType = type;
+		this.balance = bal;
 		this.status = "Pending";
 	}
 
@@ -33,30 +33,13 @@ public class Account implements Serializable{
 		this.status = "Denied";
 	}
 
-	public List<String> getUsers() {
-		return users;
-	}
-
-	public void setUsers(List<String> users) {
-		this.users = users;
-	}
 
 	public void updateBalance(double change) {
 		this.balance += change;
 		this.balance = Math.round(this.balance * 100.0) / 100.0;
 	}
 
-	public void addUser(String newUser) {
-		this.users.add(newUser);
-	}
-
-	public boolean removeUser(String oldUser) {
-		if (this.users.size() > 1) {
-			this.users.remove(oldUser);
-			return true;
-		}
-		return false;
-	}
+	
 
 	//////// GETTERS AND SETTERS ////////
 	public String getUniqueID() {
@@ -108,6 +91,6 @@ public class Account implements Serializable{
 
 	@Override
 	public String toString() {
-		return "| " +uniqueID + " | "+ accountType + " | Bal: " + balance + " | " + status + " | " + users;
+		return "| " +uniqueID + " | "+ accountType + " | Bal: " + balance + " | " + status + " | " ;
 	}
 }

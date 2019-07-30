@@ -10,15 +10,13 @@ public interface AccountDao {
 	
 	public abstract void deleteAccount(int accountID);
 	
-	public abstract void changeAccountStatus(int accountID, int status);
+	public abstract void changeAccountStatus(int accountID, String status);
 	
 	public abstract void changeAccountBalance(int accountID, double val);
 	
 	public abstract void setAccountBalance(int accountID, double val);
 	
-	public abstract int getAccountId(String username); 
-	
-	public abstract int getAccountStatus(int accountID);
+	public abstract String getAccountStatus(int accountID);
 			
 	public abstract Account getAccount(int accountID);
 	
