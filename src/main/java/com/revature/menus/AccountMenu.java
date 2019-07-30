@@ -68,7 +68,7 @@ public class AccountMenu {
 				// check if selected account is approved
 				if (acc.get(option - 1).getStatus()
 						.equals("Approved")) {
-					accountMenu(u, Dbs.accData.getAccount(Dbs.userData.getAccounts(u).get(option - 1)));
+					accountMenu(u, acc.get(option -1));
 				} else {
 					System.out.println("Sorry that account has not been approved.");
 				}
@@ -112,13 +112,14 @@ public class AccountMenu {
 	public static void withdraw(String user, String act) {
 		System.out.println("Please input an amount");
 		String s;
-
+		int a;
 		s = MenuOptions.in.nextLine();
 
 		try {
+			a = Integer.parseInt(act);
 			double amount = Double.parseDouble(s);
-			if (amount <= Dbs.accData.getBalance(act) && amount >=0) {
-				Dbs.accData.updateBalance(act, -1 * amount);
+			if (amount <= MenuOptions.adi.getAccount(a).getBalance() && amount >=0) {
+				MenuOptions.adi.changeAccountBalance(a, -1 * amount);
 			} 
 			else if(amount < 0) {
 				System.out.println("Value must be positive.");
@@ -137,11 +138,13 @@ public class AccountMenu {
 	public static void deposit(String user, String act) {
 		System.out.println("Please input an amount");
 		String s;
+		int a;
 			s = MenuOptions.in.nextLine();
 			try {
+				a = Integer.parseInt(act);
 				double amount = Double.parseDouble(s);
 				if(amount > 0)
-					Dbs.accData.updateBalance(act, amount);
+					MenuOptions.adi.changeAccountBalance(a, amount);
 				else {
 					System.out.println("Value must be positive.");
 					return;
@@ -161,23 +164,23 @@ public class AccountMenu {
 
 		System.out.println("Please enter the user id of the account you want to join");
 		username = MenuOptions.in.nextLine();
-		if (!Dbs.getUserData().checkIfExists(username)) {
+		int uId = MenuOptions.udi.getUserId(username);
+		if (uId == -1) {
 			System.out.println("User does not exist");
 			return;
 		}
-		if(!Dbs.userData.getUser(username).getStatus().equals("Approved")) {
+		if(!MenuOptions.udi.getUserStatus(username).equals("Approved")) {
 			System.out.println("Sorry, user has not been approved");
 			return;
 		}
 
 		System.out.println("Please enter the password of " + username);
 		String password = MenuOptions.in.nextLine();
-		if (!password.equals(Dbs.getUserData().getUser(username).getPassword())) {
+		if (!password.equals(MenuOptions.udi.getUserPassword(username))) {
 			System.out.println("Incorrect Password. User failed to join account.");
 			return;
 		}
-		Dbs.accData.addUser(id, username);
-		Dbs.userData.addAccount(username, id);
+		MenuOptions.anu.linkUserAndAccount(uId, Integer.parseInt(id));
 	}
 	
 	public static void transferMoney(String username, String source_id) {
